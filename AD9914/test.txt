@@ -1,0 +1,43 @@
+
+#Sweep_Type	: 1
+#Sweep_Amp	: 0.5
+Sweep_freqLow	: 6834.99
+Sweep_freqHigh	: 6835.29
+Sweep_Duration:	0.00001
+
+
+
+#P0_Freq : 6000
+#P0_Amp	: 1
+
+#P1_Freq : 0
+#P1_Amp	: 1
+
+# Profile: 0
+
+#P1_amp : 10
+
+# F : 10
+# A: 0
+
+# p:1
+# f: 23.33
+# a:0
+
+# p:3
+
+# f: 23
+# a:0
+
+
+# Sweep: f
+
+# sf1: 2
+# sf2: 10
+
+# srs: 0.001 
+# srt: 655
+
+# sfs: 0.0001
+# sft: 65
+

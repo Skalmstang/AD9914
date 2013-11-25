@@ -1,0 +1,4 @@
+Sweep_Type:1.000000
+Sweep_FreqStop:6835.432000
+Sweep_FreqStart:6834.682000
+Sweep_Duration:100000.000000
