@@ -62,7 +62,7 @@ FileInterpreter::FileInterpreter(char* filePath) : sweepOn(false){
 
 				//Different cases:
 				if (suffix == "freq") {
-					double tempFreq = (subValue / (double) 3 - ((double) fsysclk) * pow(10,-6)) * pow(10.0,6); // Subtracting refclk!
+					double tempFreq = subValue; // Subtracting refclk!
 					profiles[profile].FTW = (0 > tempFreq)? 0 : calculateFTW(tempFreq);
 				} else if (suffix == "amp") {
 					profiles[profile].ASF = calculateASF(subValue);
