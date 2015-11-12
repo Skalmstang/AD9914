@@ -57,12 +57,13 @@ FileInterpreter::FileInterpreter(char* filePath) : sweepOn(false){
 			string suffix = tokens[1];
 			transform(suffix.begin(), suffix.end(), suffix.begin(), ::tolower);	
 
+			double tempFreq = subValue * pow(10.0, 6);
+
 			if (prefix.front() == 'p') {
 				profile = stoi(prefix.substr(1,1));
-
 				//Different cases:
 				if (suffix == "freq") {
-					double tempFreq = subValue; // Subtracting refclk!
+//					double tempFreq = (subValue / (double) 3 - ((double)fsysclk) * pow(10, -6)) * pow(10.0, 6); // Subtracting refclk!
 					profiles[profile].FTW = (0 > tempFreq)? 0 : calculateFTW(tempFreq);
 				} else if (suffix == "amp") {
 					profiles[profile].ASF = calculateASF(subValue);
@@ -72,9 +73,11 @@ FileInterpreter::FileInterpreter(char* filePath) : sweepOn(false){
 			} else if (prefix == "sweep") {
 				sweepOn = true;
 				if (suffix == "start" || suffix == "freqstart" || suffix == "low" || suffix == "freqlow") {
-					sweep->Start = (subValue / (double) 3 - ((double) fsysclk) * pow(10,-6)) * pow(10.0,6);
+//					sweep->Start = (subValue / (double) 3 - ((double) fsysclk) * pow(10,-6)) * pow(10.0,6);
+					sweep->Start = tempFreq;
 				} else if (suffix == "stop" || suffix == "end" || suffix == "freqstop" || suffix == "high" || suffix == "freqhigh") {
-					sweep->Stop = (subValue / (double) 3 - ((double) fsysclk) * pow(10,-6)) * pow(10.0,6);
+//					sweep->Stop = (subValue / (double) 3 - ((double) fsysclk) * pow(10,-6)) * pow(10.0,6);
+					sweep->Stop = tempFreq;
 				} else if (suffix == "risingsize") {
 					sweep->risingSize = subValue;
 				} else if (suffix == "fallingsize") {
@@ -116,21 +119,21 @@ void FileInterpreter::cleanProfiles(){
 }
 
 int FileInterpreter::calculateFTW(double fout) {
-	return round((pow(2,32)-1) * (fout/((double) fsysclk)));
+	return myRound((pow(2,32)-1) * (fout/((double) fsysclk)));
 }
 
 /* This function takes an phase offset in radians and returns the phase offset word*/
 int FileInterpreter::calculatePOW( double phase ){
-	return round(phase / (2.0 * M_PI) * pow(2,14));
+	return myRound(phase / (2.0 * M_PI) * pow(2,14));
 }
 
 /* This function takes an decimal representing the relative amplitude from 0 to 1. and returns the amplitude scale factor */
 int FileInterpreter::calculateASF( double subValue ){
-	return round(subValue * (pow(2,12)-1));
+	return myRound(subValue * (pow(2,12)-1));
 }
 
 int FileInterpreter::calculateSweepRiseTime( double freq ) {
-	return round(freq * ((double) fsysclk) / 24.0);
+	return myRound(freq * ((double) fsysclk) / 24.0);
 }
 
 map<int, freqPhAmp> FileInterpreter::getProfiles() {

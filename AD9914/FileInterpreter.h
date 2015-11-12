@@ -88,7 +88,7 @@ public:
 		double delta = fabs(Start - Stop);
 		double bestFreq = bestFraction();
 		assert(bestFreq < delta);
-		return round(pow(2,type * 4) * bestFreq / ((double) FileInterpreter::fsysclk)); //This sysclk should be moved!
+		return myRound(pow(2,type * 4) * bestFreq / ((double) FileInterpreter::fsysclk)); //This sysclk should be moved!
 	}
 
 
@@ -118,7 +118,7 @@ private:
 		int deltaT;
 		while(testFreq <= freqMax  && fabs(idealGrad/gradient - 1) > 0.001) {
 			testFreq += ((double) FileInterpreter::fsysclk)/pow(2.0,32);
-			deltaT = round(sweepDuration / fabs(Stop - Start) * testFreq * ((double) FileInterpreter::fsysclk) / 24.0);
+			deltaT = myRound(sweepDuration / fabs(Stop - Start) * testFreq * ((double) FileInterpreter::fsysclk) / 24.0);
 
 			testGrad = testFreq / ((double) deltaT * 24.0 / (double) FileInterpreter::fsysclk);
 

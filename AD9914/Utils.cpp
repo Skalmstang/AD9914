@@ -1,7 +1,7 @@
 #include "Utils.h"
 
 
-int round(double number){
+int myRound(double number){
 	return (int) (number < 0.0 ? ceil(number - 0.5) : floor(number + 0.5));
 }
 

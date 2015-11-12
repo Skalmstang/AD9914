@@ -21,7 +21,7 @@
 
 using namespace std;
 
-int round(double number);
+int myRound(double number);
 
 /*	These trim functions was taken from http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring and modified by removing std::
 	Thank you Evan Teran :) */
